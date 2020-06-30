@@ -1,0 +1,7 @@
+INDEX VERSION 1.131
+C:\Users\shuta\eclipse-workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\648987399.index
+\test\src
+C:\GitHub\eclipse-workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\648987399.index
+\test\src
+C:\Users\shuta\eclipse-workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2741686209.index
+\webExam2\src

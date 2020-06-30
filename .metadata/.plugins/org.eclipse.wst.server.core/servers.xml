@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<servers>
+  <server auto-publish-setting="2" auto-publish-time="1" configuration-id="/Servers/localhost の Tomcat v9.0 サーバー-config" deployDir="wtpwebapps" hostname="localhost" id="localhost の Tomcat v9.0 サーバー" name="localhost の Tomcat v9.0 サーバー" runtime-id="Apache Tomcat v9.0" server-type="org.eclipse.jst.server.tomcat.90" server-type-id="org.eclipse.jst.server.tomcat.90" start-timeout="45" stop-timeout="15" testEnvironment="true" timestamp="2">
+    <list key="modules" value0="webExam2::org.eclipse.jst.jee.server:webExam2::jst.web::4.0" value1="test::org.eclipse.jst.jee.server:test::jst.web::4.0"/>
+  </server>
+  <server auto-publish-setting="2" auto-publish-time="1" configuration-id="/Servers/localhost での Tomcat v9.0 サーバー (2)-config" deployDir="wtpwebapps" hostname="localhost" id="localhost での Tomcat v9.0 サーバー (2)" name="localhost での Tomcat v9.0 サーバー (2)" runtime-id="Apache Tomcat v9.0" server-type="org.eclipse.jst.server.tomcat.90" server-type-id="org.eclipse.jst.server.tomcat.90" start-timeout="45" stop-timeout="15" testEnvironment="true" timestamp="1">
+    <list key="modules" value0="test::org.eclipse.jst.jee.server:test::jst.web::4.0" value1="webExam2::org.eclipse.jst.jee.server:webExam2::jst.web::4.0"/>
+  </server>
+</servers>

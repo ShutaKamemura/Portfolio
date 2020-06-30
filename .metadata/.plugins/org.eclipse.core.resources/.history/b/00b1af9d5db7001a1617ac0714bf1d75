@@ -1,0 +1,62 @@
+@charset "UTF-8";
+
+body{
+	background: #575757;
+	color: #fafafa;
+}
+
+header {
+	height: 45px;
+	width: 100%;
+	padding-top: 4px;
+	background: #000000;
+}
+
+header h3 {
+	float: right;
+	text-align: center;
+}
+
+.btn {
+	float:left;
+}
+
+.form-control {
+	background: #575757;
+}
+
+.row {
+	text-align: center;
+}
+
+.video-wrap {
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+#video {
+	
+	 background: url('/video_bg.jpg') no-repeat; /* 動画が再生を始めるまで、cssのほうでも背景を設定します。*/
+  background-attachment: fixed; /* 中央揃えになるように、fixed。*/
+  background-position: center center; /* positionも中央に。*/
+  background-size: cover; /* 画面サイズに応じてサイズを可変するように設定。*/
+  /* 以下、画面いっぱいにするためのCSS設定*/
+
+  /* wrapperのサイズに応じて、leftの位置をjQueryで指定するため、positionはabsoluteにします。*/
+  position: absolute;
+  /* z-indexは調整してください。*/
+  z-index: 1;
+}
+
+.video-btn {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 40px; /*コントローラー分下部に余白を*/
+	cursor: pointer;
+}

@@ -1,0 +1,13 @@
+
+
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+
+/**
+ * Servlet implementation class SimpleMediaPlayer
+ */
+@WebServlet("/SimpleMediaPlayer")
+public class SimpleMediaPlayer extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+}

@@ -1,0 +1,45 @@
+@charset "UTF-8";
+
+body{
+	background: #575757;
+	color: #fafafa;
+}
+
+header {
+	height: 45px;
+	width: 100%;
+	padding-top: 4px;
+	background: #000000;
+}
+
+header h3 {
+	float: right;
+	text-align: center;
+}
+
+.btn {
+	float:left;
+}
+
+.inline-block_test {
+	display: inline-block;
+	background-color: #575757;
+	padding: 20px;
+	height: 60px;
+	width: 100%;
+	text-align: center;
+}
+
+.row {
+	text-align: center;
+}
+
+.video-btn {
+    content: "";
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:40px; /*コントローラー分下部に余白を*/
+    cursor: pointer;
+}

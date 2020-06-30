@@ -1,0 +1,61 @@
+
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
+import javafx.stage.Stage;
+ 
+public class SimpleMediaPlayer extends Application {//[1]
+    MediaPlayer mediaPlayer;//[2]
+    Button button;//[3]
+    private static final String MEDIA_URL = "file:/C:/temp/sample.mp4";//[4]
+    @Override//[5]
+    public void start(Stage primaryStage) {//[6]
+        primaryStage.setTitle("Simple Media Player");//[7]
+        Media  media = new Media(MEDIA_URL);//[8]
+        mediaPlayer = new MediaPlayer(media);//[9]
+        MediaView mediaView = new MediaView(mediaPlayer);//[10]
+ 
+        button = new Button(">");//[11]
+        button.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);//[12]
+        button.setOnAction(new EventHandler<ActionEvent>() {//[13]
+            @Override
+            public void handle(ActionEvent e) {//[14]
+                MediaPlayer.Status status = mediaPlayer.getStatus();//[15]
+                if (status == MediaPlayer.Status.UNKNOWN  || status == MediaPlayer.Status.HALTED) {//[16]
+                    return;//[17]
+                }
+                if ( status == MediaPlayer.Status.PAUSED//[18]
+                        || status == MediaPlayer.Status.READY//[19]
+                        || status == MediaPlayer.Status.STOPPED) {//[20]
+                    mediaPlayer.play();//[21]
+                    button.setText("||");//[22]
+                    return;//[23]
+                }
+                mediaPlayer.pause();//[24]
+                button.setText(">");//[25]
+            }
+        });
+ 
+        BorderPane controlPane = new BorderPane();//[26]
+        controlPane.setBottom(button);//[27]
+        BorderPane pane = new BorderPane();//[28]
+        pane.setCenter(mediaView);//[29]
+        pane.setBottom(controlPane);//[30]
+        Scene scene = new Scene(pane, 540, 230);//[31]
+        primaryStage.setScene(scene);//[32]
+        primaryStage.sizeToScene();//[33]
+        primaryStage.show();//[34]
+    }
+ 
+    public static void main(String[] args) {//[40]
+        launch(args);//[41]
+    }
+}
+

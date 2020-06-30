@@ -1,0 +1,36 @@
+package dbAccess;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletRequest;
+
+import itemDao.ItemDao;
+import itemDto.ItemDto;
+import loginServlet.LoginServlet;
+
+public class SelectSave implements DBAccess {
+
+	@Override
+	public void execute(HttpServletRequest request) throws SQLException {
+		ItemDao dao = null;
+		int id = Integer.parseInt(request.getParameter("id"));
+		String name = LoginServlet.session;
+		
+		try {
+			dao = new ItemDao();
+			int create = dao.createTable(id, name);
+			
+		
+			
+			
+			ArrayList<ItemDto> dto = dao.getItem(code);
+			request.setAttribute("list", dto);
+			
+		}finally {
+			if(dao != null) dao.close();
+		}
+
+	}
+
+}
