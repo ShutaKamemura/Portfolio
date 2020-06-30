@@ -16,37 +16,38 @@
 <header>
 	<div class="con">
 
-		<h2>サイト名</h2>
-		<a>${login2}さんのマイページ</a>
+		<a>${user.name}さんのマイページ</a>
 	
 		<div class="tab" onclick="obj=document.getElementById('open').style; obj.display=(obj.display=='none')?'block':'none';">
-			<h6 style="cursor: pointer;">メニュー</h6>
+			<button class="btn btn-dark">
+			<h6 style="cursor: pointer;">メニュー</h6></button>
 		</div>
 		<div id="open" style="display:none;clear:both;">
 	
 			<div class="header-left">
-				<div class="btn-group-vertical">
-		
+				<div class="btn-group-vertical" role="group" aria-label="積み重ねボタングループ">
+				
 				<form action="MypageServlet" method="get">
-					<button name="btn" value="home" class="btn btn-dark">
+					<button name="btn" value="home" class="btn btn-dark" style="width: 130px;">
 					<i class="fas fa-home fa-fw"></i>HOME</button>
 				</form>
-			
+				
 				<form action="MypageServlet" method="get">
-					<button name="btn" value="search" class="btn btn-dark">
+					<button name="btn" value="search" class="btn btn-dark" style="width: 130px;">
 					<i class="fa fa-search fa-fw"></i>検索</button>
 					<input type="hidden" name="selectWay" value="username">
 				</form>
-			
+				
 				<form action="MypageServlet" method="get">
-					<button name="btn" value="like" class="btn btn-dark">
+					<button name="btn" value="like" class="btn btn-dark" style="width: 130px;">
 					<i class="fa fa-navicon fa-fw"></i>ライブラリ</button>
 				</form>
-			
+				
 				<form action="MypageServlet" method="get">
-					<button name="btn" value="set" class="btn btn-dark">
-					<i class="fas fa-cog fa-spin"></i>設定</button>
+					<button name="btn" value="set" class="btn btn-dark" style="width: 130px;">
+					<i class="fas fa-cog fa-fw"></i>設定</button>
 				</form>
+				
 				</div>
 			</div>
 		</div>
@@ -55,15 +56,55 @@
 
 	</div>	
 </header>
-	<div class="inline-block_test">
-	<h3>今週のおすすめ</h3>
-	</div>
-	<div class="inline-block_test">
-	<h3>今月のおススメ</h3>
-	</div>
-	<div class="inline-block_test">
-	<h3>今年のおすすめ</h3>
-	<!-- 作品の表示 -->
-	</div>
+
+<div class="inline-block_test">
+	<h3>作品ラインナップ</h3>
+	<br>
+</div>
+	
+<div>
+	<c:if test="${listAll != null}">
+		<div class="container">
+			<div class="row">
+			<c:forEach var="item" items="${listAll}">
+				<tr>
+				<div class="col-lg-3">
+					<video style="width: 240px; height: 160px;" src="${item.replay}.mp4" poster="${item.img}.jpg" id="${item.name}">
+						<source src="${item.replay}.mp4" type="video/mp4">
+					</video>
+					<br>
+					
+					<button id="${item.id}" style="background: #fafafa">
+					<i class="fa fa-play-circle-o "></i> 再生する</button>
+					<script>
+ 					 var goFS = document.getElementById("${item.id}");
+  					goFS.addEventListener("click", function() {
+						     var video = document.getElementById("${item.name}");
+							    video.requestFullscreen();
+ 						}, false);
+	 
+						 video.onclick = function (event) { 
+						  if (video.fullscreenElement) { 
+						    video.exitFullscreen() 
+						  } 
+						};
+					</script>
+					
+					<br>${item.name}<br>[${item.category}]<br>
+					
+					<form action="MypageServlet" method="get">
+						<button name="btn" value="keep" style="background: #575757">＋ 保存</button>
+						<input type="hidden" name="id" value="${item.id}">
+					</form>
+					<br>
+					<br>
+				</div>
+				</tr>
+			</c:forEach>
+			</div>
+		</div>
+	</c:if>
+</div>
+
 </body>
 </html>

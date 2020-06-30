@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import itemDto.ItemDto;
+import itemDto.UserDto;
 
 /**
  * Servlet implementation class ItemDao
@@ -48,9 +49,10 @@ public class ItemDao extends HttpServlet {
 		}
 	}
 	
-	public int getLoginInfo(String name, String pass) throws SQLException{
+	/*入力したユーザー名、パスワードの照合*/
+	public UserDto getLoginInfo(String name, String pass) throws SQLException{
 		
-		int row = 0;
+		UserDto user = null;
 		sql = "SELECT * from user where name = ? and password = ?";
 		ps = con.prepareStatement(sql);
 		ps.setString(1, name);
@@ -58,15 +60,35 @@ public class ItemDao extends HttpServlet {
 		
 		try {
 			rs = ps.executeQuery();
-			if(rs.next()) {
-				row = 1;
+			while(rs.next()) {
+				user = new UserDto();
+				user.setName(rs.getString("name"));
+				user.setPass(rs.getInt("password"));
+				user.setId(rs.getInt("id"));
 			}
 		}finally {
 			ps.close();
 		}
-		return row;
+		return user;
 	}
 	
+	/*ホーム画面に表示する全作品のデータ*/
+	public ArrayList<ItemDto> getItemsFromAll() throws SQLException{
+		
+		sql = "select * from item order by rand()";
+		ps = con.prepareStatement(sql);
+		return search(ps);
+	}
+	
+	public ArrayList<ItemDto> getAll(int id) throws SQLException{
+		
+		sql = "select * from library" + id + " join item on item.id = library" + id + ".itemId";
+		ps = con.prepareStatement(sql);
+		
+		return search(ps);
+	}
+	
+	/*作品名で検索*/
 	public ArrayList<ItemDto> getItemsFromName(String name) throws SQLException{
 		
 		sql = "select * from item where name like ?";
@@ -74,10 +96,43 @@ public class ItemDao extends HttpServlet {
 		ps.setString(1, "%" + name + "%");
 		return search(ps);
 	}
-
+	
+	/*カテゴリで検索*/
+	public ArrayList<ItemDto> getItemsFromCategory(String name) throws SQLException{
+		
+		sql = "select * from item where category like ?";
+		ps = con.prepareStatement(sql);
+		ps.setString(1, "%" + name + "%");
+		return search(ps);
+	}
+	
+	public int createTable(int id) throws SQLException {
+		
+		int n = 0;
+		sql = "create table if not exists library" + id + " (itemId int unique)";
+		ps = con.prepareStatement(sql);
+		n = ps.executeUpdate();
+		return n;
+	}
+	
+	public int insert(int id, int itemId) throws SQLException {
+		int n = 0;
+		sql = "insert into library" + id + " values(" + itemId + ")";
+		ps = con.prepareStatement(sql);
+		n = ps.executeUpdate();
+		return n;
+	}
+	/*ライブラリに保存するデータの取得*/
+	public ArrayList<ItemDto> getItem(int code) throws SQLException{
+		
+		sql = "select * from item where code = ?";
+		ps = con.prepareStatement(sql);
+		ps.setInt(1, code);
+		return search(ps);
+	}
 
 	private ArrayList<ItemDto> search(PreparedStatement ps) throws SQLException {
-		// TODO 自動生成されたメソッド・スタブ
+		
 		try {
 			rs = ps.executeQuery();
 			list = new ArrayList<>();
@@ -88,6 +143,10 @@ public class ItemDao extends HttpServlet {
 				dto.setCode(rs.getInt("code"));
 				dto.setName(rs.getString("name"));
 				dto.setCategory(rs.getString("category"));
+				dto.setImg(rs.getString("img"));
+				System.out.println(rs.getString("img"));
+				dto.setReplay(rs.getString("replay"));
+				System.out.println(rs.getString("replay"));
 				list.add(dto);
 			}
 		}finally {
@@ -95,21 +154,6 @@ public class ItemDao extends HttpServlet {
 		}
 		return list;
 	
-	
-	}
-
-	private String parseCategory(String string) {
-		
-		return null;
-	}
-
-	public ArrayList<ItemDto> getItemsFromCategory(String name) throws SQLException{
-		
-		sql = "select * from item where category like ?";
-		ps = con.prepareStatement(sql);
-		ps.setString(1, "%" + name + "%");
-		return search(ps);
 	}
 	
-
 }

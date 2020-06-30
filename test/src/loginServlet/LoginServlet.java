@@ -2,6 +2,7 @@ package loginServlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -13,7 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dbAccess.DBAccess;
+import dbAccess.SelectAll;
 import dbAccess.SelectForLogin;
+import itemDto.ItemDto;
+import itemDto.UserDto;
 
 /**
  * Servlet implementation class LoginServlet
@@ -29,9 +33,6 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
-		
 		
 		ServletContext context = getServletContext();
 		RequestDispatcher dis = context.getRequestDispatcher("/mypageTop.jsp");
@@ -52,13 +53,30 @@ public class LoginServlet extends HttpServlet {
 		}
 		
 		String login = (String)request.getAttribute("login");
+		UserDto user = (UserDto)request.getAttribute("user");
 		
 		HttpSession session = request.getSession();
-		session.setAttribute("login2", login);
-		int n = (int)request.getAttribute("n");
+		session.setAttribute("user", user);
+
+		int n = 0;
+		if(user != null) {
+			n = 1;
+		}
 		
 		switch(n) {
 		case 1:
+			dbAccess = new SelectAll();
+			
+			try {
+				dbAccess.execute(request);
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+			
+			ArrayList<ItemDto> list = (ArrayList<ItemDto>) request.getAttribute("list");
+			HttpSession session2 = request.getSession();
+			session2.setAttribute("listAll", list);
+			
 			ServletContext context = getServletContext();
 			RequestDispatcher dis = context.getRequestDispatcher("/mypage.jsp");
 			dis.forward(request, response);

@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import javax.servlet.http.HttpServletRequest;
 
 import itemDao.ItemDao;
+import itemDto.UserDto;
 
 
 public class SelectForLogin implements DBAccess{
@@ -13,7 +14,7 @@ public class SelectForLogin implements DBAccess{
 	public void execute(HttpServletRequest request) throws SQLException {
 		
 		ItemDao dao = null;
-		int n = 0;
+		UserDto user = null;
 		
 		String name = request.getParameter("name");
 		String pass = request.getParameter("pass");
@@ -22,15 +23,15 @@ public class SelectForLogin implements DBAccess{
 		if(name == null || name.isEmpty() || pass == null || pass.isEmpty()) {
 			
 			request.setAttribute("login", "error");
-			request.setAttribute("n", n);
+			request.setAttribute("user", user);
 			return;
 		}
 		
 		try {
 			dao = new ItemDao();
-			n = dao.getLoginInfo(name, pass); //データベースに存在するか確認
-			request.setAttribute("n", n);
-			System.out.println(n);
+			user = dao.getLoginInfo(name, pass); //データベースに存在するか確認
+			request.setAttribute("user", user);
+			System.out.println(user.getName());
 			
 			
 		}finally {

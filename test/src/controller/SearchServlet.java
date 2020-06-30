@@ -41,6 +41,8 @@ public class SearchServlet extends HttpServlet {
 		case "category":
 			dbAccess = new SelectCategory();
 			break;
+		default:
+			break;
 		}
 		try {
 			dbAccess.execute(request);
@@ -48,7 +50,16 @@ public class SearchServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		request.setAttribute("selectWay", selectWay);
+		String search = (String)request.getAttribute("aaa");
+		request.setAttribute("search", search);
+		
+		ServletContext context = getServletContext();
+		RequestDispatcher dis = context.getRequestDispatcher("/search.jsp");
+		dis.forward(request, response);
+	}
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		ServletContext context = getServletContext();
 		RequestDispatcher dis = context.getRequestDispatcher("/search.jsp");
 		dis.forward(request, response);

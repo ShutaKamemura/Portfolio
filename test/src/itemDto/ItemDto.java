@@ -6,6 +6,8 @@ public class ItemDto {
 	int code;
 	String name;
 	String category;
+	String img;
+	String replay;
 	
 	public int getId() {
 		return id;
@@ -23,6 +25,14 @@ public class ItemDto {
 		return category;
 	}
 	
+	public String getImg() {
+		return img;
+	}
+	
+	public String getReplay() {
+		return replay;
+	}
+	
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -37,6 +47,14 @@ public class ItemDto {
 	
 	public void setCategory(String category) {
 		this.category = category;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
+	
+	public void setReplay(String replay) {
+		this.replay = replay;
 	}
 
 }

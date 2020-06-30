@@ -15,6 +15,7 @@ public class SelectName implements DBAccess {
 		
 		ItemDao dao = null;
 		String name = request.getParameter("name");
+		request.setAttribute("aaa", name);
 		System.out.println(name + "を選択");
 		
 		try {
@@ -22,6 +23,7 @@ public class SelectName implements DBAccess {
 				dao = new ItemDao();
 				ArrayList<ItemDto> list = dao.getItemsFromName(name);
 				System.out.println(list.get(0).getName());
+				System.out.println(list.get(0).getImg());
 				if(list.size() > 0) {
 					request.setAttribute("list", list);
 				}else {
@@ -34,7 +36,6 @@ public class SelectName implements DBAccess {
 			if(dao != null) dao.close();
 		}
 		
-
 	}
 
 }

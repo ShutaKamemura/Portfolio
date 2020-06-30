@@ -43,6 +43,12 @@ public class MypageServlet extends HttpServlet {
 			case "set":
 				next = "SetServlet";
 				break;
+			case "replay":
+				next = "ReplayServlet";
+				break;
+			case "keep":
+				next = "SaveServlet";
+				break;
 			default:
 				next = "mypage.jsp";
 				break;

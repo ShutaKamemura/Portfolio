@@ -14,6 +14,7 @@ public class SelectCategory implements DBAccess {
 	public void execute(HttpServletRequest request) throws SQLException {
 		ItemDao dao = null;
 		String category = request.getParameter("category");
+		request.setAttribute("aaa", category);
 		System.out.println(category + "を選択");
 		
 		try {
